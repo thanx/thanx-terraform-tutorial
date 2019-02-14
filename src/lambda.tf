@@ -21,7 +21,7 @@ resource "aws_lambda_permission" "with_sns_1" {
   action        = "lambda:InvokeFunction"
   function_name = "${aws_lambda_function.source_to_target_1_sync.function_name}"
   principal     = "sns.amazonaws.com"
-  source_arn    = "${aws_sns_topic.s3_fanout_demo.arn}"
+  source_arn    = "${aws_sns_topic.s3_fanout.arn}"
 }
 
 resource "aws_lambda_permission" "with_sns_2" {
@@ -29,5 +29,5 @@ resource "aws_lambda_permission" "with_sns_2" {
   action        = "lambda:InvokeFunction"
   function_name = "${aws_lambda_function.source_to_target_2_sync.function_name}"
   principal     = "sns.amazonaws.com"
-  source_arn    = "${aws_sns_topic.s3_fanout_demo.arn}"
+  source_arn    = "${aws_sns_topic.s3_fanout.arn}"
 }

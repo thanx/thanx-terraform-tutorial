@@ -1,5 +1,5 @@
-resource "aws_s3_bucket" "source-bucket-demo" {
-  bucket = "source-bucket-demo"
+resource "aws_s3_bucket" "source-bucket" {
+  bucket = "source-bucket"
   acl    = "private"
 
   tags   = {
@@ -25,11 +25,11 @@ resource "aws_s3_bucket" "target-bucket-two" {
   }
 }
 
-resource "aws_s3_bucket_notification" "object_create_sns_demo" {
-  bucket = "${aws_s3_bucket.source-bucket-demo.id}"
+resource "aws_s3_bucket_notification" "object_create_sns" {
+  bucket = "${aws_s3_bucket.source-bucket.id}"
 
   topic {
-    topic_arn = "${aws_sns_topic.s3_fanout_demo.arn}"
+    topic_arn = "${aws_sns_topic.s3_fanout.arn}"
     events    = ["s3:ObjectCreated:*"]
   }
 }

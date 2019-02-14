@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "move_object_demo" {
+data "aws_iam_policy_document" "move_object" {
   statement {
     effect    = "Allow"
     actions   = [
@@ -17,7 +17,7 @@ data "aws_iam_policy_document" "move_object_demo" {
       "s3:GetObject"
     ]
     resources = [
-      "${aws_s3_bucket.source-bucket-demo.arn}/*"
+      "${aws_s3_bucket.source-bucket.arn}/*"
     ]
   }
 
@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "move_object_demo" {
   }
 }
 
-data "aws_iam_policy_document" "lambda_sync_execution_policy_demo" {
+data "aws_iam_policy_document" "lambda_sync_execution_policy" {
   statement {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
@@ -44,13 +44,13 @@ data "aws_iam_policy_document" "lambda_sync_execution_policy_demo" {
   }
 }
 
-resource "aws_iam_role_policy" "lambda_sync_permissions_demo" {
-  name   = "lambda_sync_permissions_demo"
+resource "aws_iam_role_policy" "lambda_sync_permissions" {
+  name   = "lambda_sync_permissions"
   role   = "${aws_iam_role.source_to_target_sync.id}"
-  policy = "${data.aws_iam_policy_document.move_object_demo.json}"
+  policy = "${data.aws_iam_policy_document.move_object.json}"
 }
 
 resource "aws_iam_role" "source_to_target_sync" {
   name               = "source_to_target_sync"
-  assume_role_policy = "${data.aws_iam_policy_document.lambda_sync_execution_policy_demo.json}"
+  assume_role_policy = "${data.aws_iam_policy_document.lambda_sync_execution_policy.json}"
 }
